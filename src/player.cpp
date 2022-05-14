@@ -19,3 +19,11 @@ void Player::setHighScore(int newScore){
 int Player::getHighScore(){
     return highScore;
 }
+
+void Player::setName(std::string Name){
+    name = Name;
+}
+
+std::string Player::getName(){
+    return name;
+}

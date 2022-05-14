@@ -20,6 +20,8 @@ public:
 
     int getHighScore();
 
+    void setName(std::string Name);
+    std::string getName();
 };
 
 #endif //MAIN_CPP_PLAYER_H

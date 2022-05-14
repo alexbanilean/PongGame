@@ -19,30 +19,28 @@ private:
     // Window
     Vector2f resolution;
     RenderWindow window;
-    const unsigned int FPS = 60;
-    static const Time TimePerFrame;
+    const unsigned int FPS = 60; // frames per second
 
     Player player1, player2;
     int score1, score2;
 
     Circle ball = Circle(Vector2f(600, 400));
     int ballDirection, ballSpeed;
-    deque<int> directionQueue;
+    int blade1Direction, blade2Direction, bladeSpeed;
 
     Blade blade1 = Blade(Vector2f(50, 400));
     Blade blade2 = Blade(Vector2f(1150, 400));
 
     vector<Wall> walls;
 
-    Time timeSinceLastMove;
+    Time timeSinceLastMove, timeSinceBladesMove;
 
     int currentGameState, lastGameState;
-
 
 public:
 
     enum Direction { UP, RIGHT, DOWN, LEFT, UPRIGHT, DOWNRIGHT, UPLEFT, DOWNLEFT };
-    enum GameState { RUNNING, PAUSED, INITIAL};
+    enum GameState { RUNNING, PAUSED, INITIAL, READING, DISPLAY};
 
     GameScreen();
 
@@ -52,13 +50,14 @@ public:
 
     void input();
 
-    void addDirection(int newDirection);
     void updateBall();
+    void updateBlades();
 
     void startTheGame();
     void togglePause();
 
     void draw();
+    void drawInstructions();
     void drawHighscoresTable();
 
     friend class Game;

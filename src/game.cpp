@@ -5,27 +5,37 @@ void Game::mainLoop(){
     Clock clock;
 
     while(screen.window.isOpen()){
+        Time dt = clock.restart();
 
-        if(screen.currentGameState != GameScreen::GameState::INITIAL) {
+        screen.timeSinceLastMove += dt;
+        screen.timeSinceBladesMove += dt;
 
-            Time dt = clock.restart();
-
-            if (screen.currentGameState == GameScreen::GameState::PAUSED) {
-                screen.input();
-
-                sleep(milliseconds(2));
-                continue;
-            }
-
-            screen.timeSinceLastMove += dt;
-
-            screen.input();
-            screen.updateBall();
-            screen.draw();
-        }
-        else{
+        if (screen.currentGameState == GameScreen::GameState::INITIAL){
             screen.StartMenu();
             screen.input();
         }
+        else if (screen.currentGameState == GameScreen::GameState::PAUSED) {
+            screen.draw();
+            screen.input();
+
+            sleep(milliseconds(2));
+        }
+        else if(screen.currentGameState == GameScreen::GameState::READING){
+            screen.read();
+        }
+        else if(screen.currentGameState == GameScreen::GameState::DISPLAY){
+            screen.drawInstructions();
+            screen.drawHighscoresTable();
+        }
+        else {
+            // RUNNING state
+
+            screen.updateBall();
+            screen.updateBlades();
+
+            screen.draw();
+            screen.input();
+        }
+
     }
 }
