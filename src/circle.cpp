@@ -2,7 +2,6 @@
 
 Circle::Circle(Vector2f startPosition){
     circle.setRadius(10);
-    circle.setFillColor(Color::Blue);
     circle.setPosition(startPosition);
     position = startPosition;
 }

@@ -18,44 +18,53 @@ void GameScreen::StartMenu(){
     score1 = score2 = 0;
     displayHighscoresTable = false;
 
-    window.clear(Color::Black);
+    window.clear(backgroundColor);
 
     Font font;
     if(font.loadFromFile("../arial.ttf")){
-        Text optionStartGame, optionInstructions, optionShowHighScores, optionExit;
+        Text title, optionStartGame, optionInstructions, optionShowHighScores, optionExit;
+
+        title.setFont(font);
+        title.setString("Pong Game");
+        title.setCharacterSize(30);
+        title.setFillColor(displayColor);
+        title.setStyle(Text::Bold);
+        title.setOrigin(title.getGlobalBounds().width / 2, title.getGlobalBounds().height / 2);
+        title.setPosition(600, 150);
 
         optionStartGame.setFont(font);
         optionStartGame.setString("Press 1 to start the game");
         optionStartGame.setCharacterSize(20);
-        optionStartGame.setFillColor(Color::Blue);
+        optionStartGame.setFillColor(displayColor);
         optionStartGame.setStyle(Text::Regular);
-        optionStartGame.setOrigin(optionStartGame.getLocalBounds().width / 2, optionStartGame.getLocalBounds().height / 2);
+        optionStartGame.setOrigin(optionStartGame.getGlobalBounds().width / 2, optionStartGame.getGlobalBounds().height / 2);
         optionStartGame.setPosition(600, 325);
 
         optionInstructions.setFont(font);
         optionInstructions.setString("Press 2 to show instructions");
         optionInstructions.setCharacterSize(20);
-        optionInstructions.setFillColor(Color::Blue);
+        optionInstructions.setFillColor(displayColor);
         optionInstructions.setStyle(Text::Regular);
-        optionInstructions.setOrigin(optionInstructions.getLocalBounds().width / 2, optionInstructions.getLocalBounds().height / 2);
+        optionInstructions.setOrigin(optionInstructions.getGlobalBounds().width / 2, optionInstructions.getGlobalBounds().height / 2);
         optionInstructions.setPosition(600, 375);
 
         optionShowHighScores.setFont(font);
         optionShowHighScores.setString("Press 3 to show highscores table");
         optionShowHighScores.setCharacterSize(20);
-        optionShowHighScores.setFillColor(Color::Blue);
+        optionShowHighScores.setFillColor(displayColor);
         optionShowHighScores.setStyle(Text::Regular);
-        optionShowHighScores.setOrigin(optionShowHighScores.getLocalBounds().width / 2, optionShowHighScores.getLocalBounds().height / 2);
+        optionShowHighScores.setOrigin(optionShowHighScores.getGlobalBounds().width / 2, optionShowHighScores.getGlobalBounds().height / 2);
         optionShowHighScores.setPosition(600, 425);
 
         optionExit.setFont(font);
         optionExit.setString("Press Esc to exit the game");
         optionExit.setCharacterSize(20);
-        optionExit.setFillColor(Color::Blue);
+        optionExit.setFillColor(displayColor);
         optionExit.setStyle(Text::Regular);
-        optionExit.setOrigin(optionExit.getLocalBounds().width / 2, optionExit.getLocalBounds().height / 2);
+        optionExit.setOrigin(optionExit.getGlobalBounds().width / 2, optionExit.getGlobalBounds().height / 2);
         optionExit.setPosition(600, 475);
 
+        window.draw(title);
         window.draw(optionStartGame);
         window.draw(optionInstructions);
         window.draw(optionShowHighScores);
@@ -78,17 +87,17 @@ void GameScreen::read() {
         player1Display.setFont(font);
         player1Display.setString("Player 1");
         player1Display.setCharacterSize(30);
-        player1Display.setFillColor(Color::Blue);
+        player1Display.setFillColor(displayColor);
         player1Display.setStyle(Text::Regular);
-        player1Display.setOrigin(player1Display.getLocalBounds().width / 2, player1Display.getLocalBounds().height / 2);
+        player1Display.setOrigin(player1Display.getGlobalBounds().width / 2, player1Display.getGlobalBounds().height / 2);
         player1Display.setPosition(300, 300);
 
         player2Display.setFont(font);
         player2Display.setString("Player 2");
         player2Display.setCharacterSize(30);
-        player2Display.setFillColor(Color::Blue);
+        player2Display.setFillColor(displayColor);
         player2Display.setStyle(Text::Regular);
-        player2Display.setOrigin(player2Display.getLocalBounds().width / 2, player2Display.getLocalBounds().height / 2);
+        player2Display.setOrigin(player2Display.getGlobalBounds().width / 2, player2Display.getGlobalBounds().height / 2);
         player2Display.setPosition(900, 300);
 
         line.setSize(Vector2f(2, resolution.y));
@@ -101,22 +110,22 @@ void GameScreen::read() {
             name1Display.setFont(font);
             name1Display.setString("Name: " + name1);
             name1Display.setCharacterSize(30);
-            name1Display.setFillColor(Color::Blue);
+            name1Display.setFillColor(displayColor);
             name1Display.setStyle(Text::Regular);
-            name1Display.setOrigin(name1Display.getLocalBounds().width / 2, name1Display.getLocalBounds().height / 2);
+            name1Display.setOrigin(name1Display.getGlobalBounds().width / 2, name1Display.getGlobalBounds().height / 2);
             name1Display.setPosition(300, 400);
 
             name2Display.setFont(font);
             name2Display.setString("Name: " + name2);
             name2Display.setCharacterSize(30);
-            name2Display.setFillColor(Color::Blue);
+            name2Display.setFillColor(displayColor);
             name2Display.setStyle(Text::Regular);
-            name2Display.setOrigin(name2Display.getLocalBounds().width / 2, name2Display.getLocalBounds().height / 2);
+            name2Display.setOrigin(name2Display.getGlobalBounds().width / 2, name2Display.getGlobalBounds().height / 2);
             name2Display.setPosition(900, 400);
 
             // Display
 
-            window.clear(Color::Black);
+            window.clear(backgroundColor);
             window.draw(player1Display);
             window.draw(player2Display);
 
@@ -183,13 +192,17 @@ void GameScreen::startTheGame(){
 
     currentGameState = GameState::RUNNING;
 
+    ball.circle.setFillColor(displayColor);
     ball.circle.setOrigin(ball.circle.getRadius() / 2, ball.circle.getRadius() / 2);
     ball.setPosition(Vector2f(window.getSize().x / 2, window.getSize().y / 2));
     ball.update();
 
+    blade1.blade.setFillColor(displayColor);
     blade1.blade.setOrigin(blade1.blade.getLocalBounds().width / 2, blade1.blade.getLocalBounds().height / 2);
     blade1.setPosition(Vector2f(50, window.getSize().y / 2));
     blade1.update();
+
+    blade2.blade.setFillColor(displayColor);
     blade2.blade.setOrigin(blade2.blade.getLocalBounds().width / 2, blade2.blade.getLocalBounds().height / 2);
     blade2.setPosition(Vector2f(window.getSize().x - 50, window.getSize().y / 2));
     blade2.update();
@@ -301,7 +314,7 @@ void GameScreen::togglePause(){
 }
 
 void GameScreen::draw(){
-    window.clear(Color::Black);
+    window.clear(backgroundColor);
 
     for(auto w: walls)
         window.draw(w.getShape());
@@ -319,7 +332,7 @@ void GameScreen::draw(){
         score.setCharacterSize(25);
         score.setFillColor(Color::White);
         score.setStyle(Text::Bold);
-        score.setOrigin(score.getLocalBounds().width / 2,score.getLocalBounds().height / 2);
+        score.setOrigin(score.getGlobalBounds().width / 2, score.getGlobalBounds().height / 2);
         score.setPosition(600, 50);
 
         window.draw(score);
@@ -336,7 +349,7 @@ void GameScreen::draw(){
         player1Score.setCharacterSize(25);
         player1Score.setFillColor(Color::White);
         player1Score.setStyle(Text::Bold);
-        player1Score.setOrigin(player1Score.getLocalBounds().width / 2, player1Score.getLocalBounds().height / 2);
+        player1Score.setOrigin(player1Score.getGlobalBounds().width / 2, player1Score.getGlobalBounds().height / 2);
         player1Score.setPosition(300, 50);
 
         // Player 1 name
@@ -347,7 +360,7 @@ void GameScreen::draw(){
         player1Name.setCharacterSize(25);
         player1Name.setFillColor(Color::White);
         player1Name.setStyle(Text::Bold);
-        player1Name.setOrigin(player1Name.getLocalBounds().width / 2, player1Name.getLocalBounds().height / 2);
+        player1Name.setOrigin(player1Name.getGlobalBounds().width / 2, player1Name.getGlobalBounds().height / 2);
         player1Name.setPosition(300, 750);
 
         // Player 2 score
@@ -358,7 +371,7 @@ void GameScreen::draw(){
         player2Score.setCharacterSize(25);
         player2Score.setFillColor(Color::White);
         player2Score.setStyle(Text::Bold);
-        player2Score.setOrigin(player2Score.getLocalBounds().width / 2, player2Score.getLocalBounds().height / 2);
+        player2Score.setOrigin(player2Score.getGlobalBounds().width / 2, player2Score.getGlobalBounds().height / 2);
         player2Score.setPosition(900, 50);
 
         // Player 2 name
@@ -369,7 +382,7 @@ void GameScreen::draw(){
         player2Name.setCharacterSize(25);
         player2Name.setFillColor(Color::White);
         player2Name.setStyle(Text::Bold);
-        player2Name.setOrigin(player2Name.getLocalBounds().width / 2, player2Name.getLocalBounds().height / 2);
+        player2Name.setOrigin(player2Name.getGlobalBounds().width / 2, player2Name.getGlobalBounds().height / 2);
         player2Name.setPosition(900, 750);
 
         window.draw(player1Score);
@@ -387,32 +400,14 @@ void GameScreen::draw(){
             paused.setFont(font);
             paused.setString("Game paused");
             paused.setCharacterSize(30);
-            paused.setFillColor(Color::Yellow);
+            paused.setFillColor(Color::White);
             paused.setStyle(Text::Bold);
-            paused.setOrigin(paused.getLocalBounds().width / 2, paused.getLocalBounds().height / 2);
+            paused.setOrigin(paused.getGlobalBounds().width / 2, paused.getGlobalBounds().height / 2);
             paused.setPosition(600, 400);
 
             window.draw(paused);
         }
     }
-
-//    cout << player1.getHighScore() << ' ' << player2.getHighScore() << '\n';
-//
-//    if (score1 >= player1.getHighScore()) {
-//        player1.setHighScore(score1);
-//
-//        Score aux(player1.getId(), player1.getName(), player1.getHighScore());
-//
-//        table.updateTable(aux);
-//    }
-//
-//    if (score2 >= player2.getHighScore()) {
-//        player2.setHighScore(score2);
-//
-//        Score aux(player2.getId(), player2.getName(), player2.getHighScore());
-//
-//        table.updateTable(aux);
-//    }
 
     window.display();
 }
@@ -421,7 +416,7 @@ void GameScreen::drawInstructions(){
 
     currentGameState = GameState::DISPLAY;
 
-    window.clear(Color::Black);
+    window.clear(backgroundColor);
 
     vector<string> instructions = {"Insert Player1's name and press Enter",
                                    "Insert Players'2 name and press Enter", "Player 1 press W to move the blade UP and S to move the blade DOWN",
@@ -438,7 +433,7 @@ void GameScreen::drawInstructions(){
         instr0.setFont(font);
         instr0.setString("Instructions for playing Pong");
         instr0.setCharacterSize(35);
-        instr0.setFillColor(Color::White);
+        instr0.setFillColor(displayColor);
         instr0.setStyle(Text::Bold);
         instr0.setPosition(50, 100);
 
@@ -450,7 +445,7 @@ void GameScreen::drawInstructions(){
             instr.setFont(font);
             instr.setString(i);
             instr.setCharacterSize(25);
-            instr.setFillColor(Color::White);
+            instr.setFillColor(displayColor);
             instr.setStyle(Text::Regular);
             instr.setPosition(50, startPos);
 
@@ -467,7 +462,7 @@ void GameScreen::drawHighscoresTable(){
     currentGameState = GameState::DISPLAY;
     displayHighscoresTable = true;
 
-    window.clear(Color::Black);
+    window.clear(backgroundColor);
 
     Font font;
     float startPosY = 150;
@@ -480,7 +475,7 @@ void GameScreen::drawHighscoresTable(){
         headerId.setFont(font);
         headerId.setString("Player Id");
         headerId.setCharacterSize(35);
-        headerId.setFillColor(Color::White);
+        headerId.setFillColor(displayColor);
         headerId.setStyle(Text::Bold);
         headerId.setOrigin(0, 0);
         headerId.setPosition(Vector2f(200, 50));
@@ -488,7 +483,7 @@ void GameScreen::drawHighscoresTable(){
         headerName.setFont(font);
         headerName.setString("Name");
         headerName.setCharacterSize(35);
-        headerName.setFillColor(Color::White);
+        headerName.setFillColor(displayColor);
         headerName.setStyle(Text::Bold);
         headerName.setOrigin(0, 0);
         headerName.setPosition(Vector2f(500, 50));
@@ -496,7 +491,7 @@ void GameScreen::drawHighscoresTable(){
         headerScore.setFont(font);
         headerScore.setString("HighScore");
         headerScore.setCharacterSize(35);
-        headerScore.setFillColor(Color::White);
+        headerScore.setFillColor(displayColor);
         headerScore.setStyle(Text::Bold);
         headerScore.setOrigin(0, 0);
         headerScore.setPosition(Vector2f(800, 50));
@@ -515,7 +510,7 @@ void GameScreen::drawHighscoresTable(){
             dataId.setFont(font);
             dataId.setString(to_string(elem.id));
             dataId.setCharacterSize(25);
-            dataId.setFillColor(Color::White);
+            dataId.setFillColor(displayColor);
             dataId.setStyle(Text::Regular);
             dataId.setOrigin(0, 0);
             dataId.setPosition(Vector2f(200, startPosY));
@@ -523,7 +518,7 @@ void GameScreen::drawHighscoresTable(){
             dataName.setFont(font);
             dataName.setString(elem.name);
             dataName.setCharacterSize(25);
-            dataName.setFillColor(Color::White);
+            dataName.setFillColor(displayColor);
             dataName.setStyle(Text::Regular);
             dataName.setOrigin(0, 0);
             dataName.setPosition(Vector2f(500, startPosY));
@@ -531,7 +526,7 @@ void GameScreen::drawHighscoresTable(){
             dataScore.setFont(font);
             dataScore.setString(to_string(elem.score));
             dataScore.setCharacterSize(25);
-            dataScore.setFillColor(Color::White);
+            dataScore.setFillColor(displayColor);
             dataScore.setStyle(Text::Regular);
             dataScore.setOrigin(0, 0);
             dataScore.setPosition(Vector2f(800, startPosY));

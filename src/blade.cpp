@@ -2,7 +2,6 @@
 
 Blade::Blade(Vector2f startPosition){
     blade.setSize(Vector2f(15, 90));
-    blade.setFillColor(Color::Blue);
     blade.setPosition(startPosition);
 }
 

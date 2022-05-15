@@ -22,6 +22,9 @@ private:
     RenderWindow window;
     const unsigned int FPS = 60; // frames per second
 
+    Color backgroundColor = Color(65, 75, 80);
+    Color displayColor = Color(90, 200, 230);
+
     Player player1, player2;
     int score1, score2;
 
