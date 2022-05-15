@@ -20,6 +20,10 @@ int Player::getHighScore(){
     return highScore;
 }
 
+int Player::getId() {
+    return id;
+}
+
 void Player::setName(std::string Name){
     name = Name;
 }

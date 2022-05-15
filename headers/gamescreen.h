@@ -8,6 +8,7 @@
 #include "circle.h"
 #include "blade.h"
 #include "wall.h"
+#include "highscoretable.h"
 #include <deque>
 
 using namespace sf;
@@ -24,6 +25,8 @@ private:
     Player player1, player2;
     int score1, score2;
 
+    RectangleShape line;
+
     Circle ball = Circle(Vector2f(600, 400));
     int ballDirection, ballSpeed;
     int blade1Direction, blade2Direction, bladeSpeed;
@@ -36,6 +39,9 @@ private:
     Time timeSinceLastMove, timeSinceBladesMove;
 
     int currentGameState, lastGameState;
+    bool displayHighscoresTable;
+
+    HighScoreTable table;
 
 public:
 

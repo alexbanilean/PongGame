@@ -117,6 +117,13 @@ build CMakeFiles/PongGame.dir/src/wall.cpp.obj: CXX_COMPILER__PongGame_Debug D$:
   OBJECT_DIR = CMakeFiles\PongGame.dir
   OBJECT_FILE_DIR = CMakeFiles\PongGame.dir\src
 
+build CMakeFiles/PongGame.dir/src/highscoretable.cpp.obj: CXX_COMPILER__PongGame_Debug D$:/Proiecte/CLion/PongGame/src/highscoretable.cpp || cmake_object_order_depends_target_PongGame
+  DEP_FILE = CMakeFiles\PongGame.dir\src\highscoretable.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  INCLUDES = -ID:/Proiecte/CLion/PongGame/headers -Id:/SFML/include -ID:/SFML/include
+  OBJECT_DIR = CMakeFiles\PongGame.dir
+  OBJECT_FILE_DIR = CMakeFiles\PongGame.dir\src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target PongGame
@@ -125,7 +132,7 @@ build CMakeFiles/PongGame.dir/src/wall.cpp.obj: CXX_COMPILER__PongGame_Debug D$:
 #############################################
 # Link the executable PongGame.exe
 
-build PongGame.exe: CXX_EXECUTABLE_LINKER__PongGame_Debug CMakeFiles/PongGame.dir/src/main.cpp.obj CMakeFiles/PongGame.dir/src/game.cpp.obj CMakeFiles/PongGame.dir/src/gamescreen.cpp.obj CMakeFiles/PongGame.dir/src/player.cpp.obj CMakeFiles/PongGame.dir/src/blade.cpp.obj CMakeFiles/PongGame.dir/src/circle.cpp.obj CMakeFiles/PongGame.dir/src/update.cpp.obj CMakeFiles/PongGame.dir/src/wall.cpp.obj | D$:/SFML/lib/libsfml-system-d.a D$:/SFML/lib/libsfml-window-d.a D$:/SFML/lib/libsfml-graphics-d.a
+build PongGame.exe: CXX_EXECUTABLE_LINKER__PongGame_Debug CMakeFiles/PongGame.dir/src/main.cpp.obj CMakeFiles/PongGame.dir/src/game.cpp.obj CMakeFiles/PongGame.dir/src/gamescreen.cpp.obj CMakeFiles/PongGame.dir/src/player.cpp.obj CMakeFiles/PongGame.dir/src/blade.cpp.obj CMakeFiles/PongGame.dir/src/circle.cpp.obj CMakeFiles/PongGame.dir/src/update.cpp.obj CMakeFiles/PongGame.dir/src/wall.cpp.obj CMakeFiles/PongGame.dir/src/highscoretable.cpp.obj | D$:/SFML/lib/libsfml-system-d.a D$:/SFML/lib/libsfml-window-d.a D$:/SFML/lib/libsfml-graphics-d.a
   FLAGS = -g
   LINK_LIBRARIES = D:/SFML/lib/libsfml-system-d.a  D:/SFML/lib/libsfml-window-d.a  D:/SFML/lib/libsfml-graphics-d.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\PongGame.dir

@@ -44,8 +44,11 @@ void GameScreen::updateBall(){
 
         bool blade_collision = false;
 
-        if (blade1.getShape().getGlobalBounds().intersects(ball.getShape().getGlobalBounds())) {
+        FloatRect result;
+
+        if (blade1.getShape().getGlobalBounds().intersects(ball.getShape().getGlobalBounds(), result)) {
             blade_collision = true;
+
             if (ballDirection == Direction::DOWNLEFT) {
                 ballDirection = Direction::DOWNRIGHT;
                 ball.setPosition(Vector2f(BallPosition.x + 10, BallPosition.y + 10));
@@ -141,8 +144,11 @@ void GameScreen::updateBall(){
                         if (index == 1) {
                             // Left wall collision, let the ball pass, update player2's score and reset the game
                             ++score2;
-                            if(score2 > player2.getHighScore()) {
+                            if(score2 >= player2.getHighScore()) {
                                 player2.setHighScore(score2);
+
+                                Score aux(player2.getId(), player2.getName(), player2.getHighScore());
+                                table.updateTable(aux);
                             }
 
                             ballDirection = Direction::LEFT;
@@ -159,8 +165,11 @@ void GameScreen::updateBall(){
                         else {
                             // Right wall collision, let the ball pass, update player1's score and reset the game
                             ++score1;
-                            if(score1 > player1.getHighScore()) {
+                            if(score1 >= player1.getHighScore()) {
                                 player1.setHighScore(score1);
+
+                                Score aux(player1.getId(), player1.getName(), player1.getHighScore());
+                                table.updateTable(aux);
                             }
 
                             ballDirection = Direction::RIGHT;
@@ -191,20 +200,22 @@ void GameScreen::updateBlades(){
         Vector2f blade1Position = blade1.getPosition();
         Vector2f blade2Position = blade2.getPosition();
 
+        const int update_val = 10;
+
         // Blade 1 update
         if(blade1Direction == Direction::UP){
-            blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y - 10));
+            blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y - update_val));
         }
         else if(blade1Direction == Direction::DOWN){
-            blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y + 10));
+            blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y + update_val));
         }
 
         // Blade 2 update
         if(blade2Direction == Direction::UP){
-            blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y - 10));
+            blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y - update_val));
         }
         else if(blade2Direction == Direction::DOWN){
-            blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y + 10));
+            blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y + update_val));
         }
 
         // Check collision with walls
@@ -218,11 +229,11 @@ void GameScreen::updateBlades(){
                     blade1.setPosition(blade1Position);
                     if(index == 0){
                         blade1Direction = Direction::DOWN;
-                        blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y + 10));
+                        blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y + update_val));
                     }
                     else{
                         blade1Direction = Direction::UP;
-                        blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y - 10));
+                        blade1.setPosition(Vector2f(blade1Position.x, blade1Position.y - update_val));
                     }
                 }
 
@@ -230,11 +241,11 @@ void GameScreen::updateBlades(){
                     blade2.setPosition(blade2Position);
                     if(index == 0){
                         blade2Direction = Direction::DOWN;
-                        blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y + 10));
+                        blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y + update_val));
                     }
                     else {
                         blade2Direction = Direction::UP;
-                        blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y - 10));
+                        blade2.setPosition(Vector2f(blade2Position.x, blade2Position.y - update_val));
                     }
                 }
             }

@@ -19,6 +19,7 @@ public:
     void setHighScore(int newScore);
 
     int getHighScore();
+    int getId();
 
     void setName(std::string Name);
     std::string getName();

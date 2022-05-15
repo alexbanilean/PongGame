@@ -1,13 +1,34 @@
 #ifndef MAIN_CPP_HIGHSCORETABLE_H
 #define MAIN_CPP_HIGHSCORETABLE_H
 
+#include <utility>
 #include <vector>
-#include "highscore.h"
+#include <string>
+
+struct Score{
+    int id, score;
+    std::string name;
+
+    Score(int ID, std::string Name, int Score){
+        id = ID;
+        name = Name;
+        score = Score;
+    }
+};
 
 class HighScoreTable{
 
 private:
-    std::vector<HighScore> highscores;
+    std::vector<Score> highscores;
+
+public:
+    HighScoreTable();
+
+    std::vector<Score> getHighScoreTable();
+
+    void updateTable(Score newScore);
+
+    void sort();
 
 };
 

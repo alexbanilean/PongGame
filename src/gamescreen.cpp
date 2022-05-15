@@ -16,6 +16,7 @@ void GameScreen::StartMenu(){
     currentGameState = GameState::INITIAL;
 
     score1 = score2 = 0;
+    displayHighscoresTable = false;
 
     window.clear(Color::Black);
 
@@ -90,6 +91,10 @@ void GameScreen::read() {
         player2Display.setOrigin(player2Display.getLocalBounds().width / 2, player2Display.getLocalBounds().height / 2);
         player2Display.setPosition(900, 300);
 
+        line.setSize(Vector2f(2, resolution.y));
+        line.setFillColor(Color::White);
+        line.setPosition(Vector2f(599, 0));
+
         while (window.isOpen() && !completed) {
             // Update names
 
@@ -114,6 +119,8 @@ void GameScreen::read() {
             window.clear(Color::Black);
             window.draw(player1Display);
             window.draw(player2Display);
+
+            window.draw(line);
 
             window.draw(name1Display);
             window.draw(name2Display);
@@ -155,12 +162,10 @@ void GameScreen::read() {
                         // Enter to go to next name or finish the reading process
                         if (!toName2) {
                             player1 = Player(name1);
-
                             toName2 = true;
                         }
                         else if(toName2 && !completed){
                             player2 = Player(name2);
-
                             completed = true;
                         }
 
@@ -190,7 +195,7 @@ void GameScreen::startTheGame(){
     blade2.update();
 
     ballSpeed = 500;
-    bladeSpeed = 1000;
+    bladeSpeed = 500;
 
     srand(time(NULL));
     int dir = rand() % 2;
@@ -264,6 +269,17 @@ void GameScreen::input(){
                         blade2Direction = Direction::UP;
                     } else if (event.key.code == Keyboard::Down) {
                         blade2Direction = Direction::DOWN;
+                    }
+                }
+                else if(currentGameState == GameState::PAUSED){
+                    // Pause
+                    if (Keyboard::isKeyPressed(Keyboard::Space))
+                        togglePause();
+
+                }
+                else if(currentGameState == GameState::DISPLAY){
+                    if(event.key.code == Keyboard::Escape){
+                        currentGameState = GameState::INITIAL;
                     }
                 }
 
@@ -380,33 +396,154 @@ void GameScreen::draw(){
         }
     }
 
+//    cout << player1.getHighScore() << ' ' << player2.getHighScore() << '\n';
+//
+//    if (score1 >= player1.getHighScore()) {
+//        player1.setHighScore(score1);
+//
+//        Score aux(player1.getId(), player1.getName(), player1.getHighScore());
+//
+//        table.updateTable(aux);
+//    }
+//
+//    if (score2 >= player2.getHighScore()) {
+//        player2.setHighScore(score2);
+//
+//        Score aux(player2.getId(), player2.getName(), player2.getHighScore());
+//
+//        table.updateTable(aux);
+//    }
+
     window.display();
 }
 
 void GameScreen::drawInstructions(){
 
-    while(window.isOpen()){
-        Event event{};
+    currentGameState = GameState::DISPLAY;
 
-        window.clear(Color::Black);
+    window.clear(Color::Black);
 
-        while(window.pollEvent(event)){
-            // Window closed
-            if(event.type == Event::Closed){
-                window.close();
-            }
+    vector<string> instructions = {"Insert Player1's name and press Enter",
+                                   "Insert Players'2 name and press Enter", "Player 1 press W to move the blade UP and S to move the blade DOWN",
+                                   "Player 2 press ARROW UP to move the blade UP and ARROW DOWN to move the blade DOWN",
+                                   "Press SPACE when the game is running to pause it",
+                                   "Press ESC once to return to the menu and twice to exit the game",
+                                   "Have fun and enjoy your time!"};
 
-            if(event.type == Event::KeyPressed) {
-                if(event.key.code == Keyboard::Escape)
-                    currentGameState = GameState::INITIAL;
-            }
+    Font font;
+    float startPos = 250;
+    if(font.loadFromFile("../arial.ttf")) {
+        Text instr0;
+
+        instr0.setFont(font);
+        instr0.setString("Instructions for playing Pong");
+        instr0.setCharacterSize(35);
+        instr0.setFillColor(Color::White);
+        instr0.setStyle(Text::Bold);
+        instr0.setPosition(50, 100);
+
+        window.draw(instr0);
+
+        for (const auto& i: instructions) {
+            Text instr;
+
+            instr.setFont(font);
+            instr.setString(i);
+            instr.setCharacterSize(25);
+            instr.setFillColor(Color::White);
+            instr.setStyle(Text::Regular);
+            instr.setPosition(50, startPos);
+
+            startPos += 50;
+
+            window.draw(instr);
         }
-
-        window.display();
     }
 
+    window.display();
 }
 
 void GameScreen::drawHighscoresTable(){
+    currentGameState = GameState::DISPLAY;
+    displayHighscoresTable = true;
 
+    window.clear(Color::Black);
+
+    Font font;
+    float startPosY = 150;
+    if(font.loadFromFile("../arial.ttf")) {
+
+        // Header
+
+        Text headerId, headerName, headerScore;
+
+        headerId.setFont(font);
+        headerId.setString("Player Id");
+        headerId.setCharacterSize(35);
+        headerId.setFillColor(Color::White);
+        headerId.setStyle(Text::Bold);
+        headerId.setOrigin(0, 0);
+        headerId.setPosition(Vector2f(200, 50));
+
+        headerName.setFont(font);
+        headerName.setString("Name");
+        headerName.setCharacterSize(35);
+        headerName.setFillColor(Color::White);
+        headerName.setStyle(Text::Bold);
+        headerName.setOrigin(0, 0);
+        headerName.setPosition(Vector2f(500, 50));
+
+        headerScore.setFont(font);
+        headerScore.setString("HighScore");
+        headerScore.setCharacterSize(35);
+        headerScore.setFillColor(Color::White);
+        headerScore.setStyle(Text::Bold);
+        headerScore.setOrigin(0, 0);
+        headerScore.setPosition(Vector2f(800, 50));
+
+        window.draw(headerId);
+        window.draw(headerName);
+        window.draw(headerScore);
+
+        // Data
+
+        table.sort();
+
+        for (const auto& elem: table.getHighScoreTable()) {
+            Text dataId, dataName, dataScore;
+
+            dataId.setFont(font);
+            dataId.setString(to_string(elem.id));
+            dataId.setCharacterSize(25);
+            dataId.setFillColor(Color::White);
+            dataId.setStyle(Text::Regular);
+            dataId.setOrigin(0, 0);
+            dataId.setPosition(Vector2f(200, startPosY));
+
+            dataName.setFont(font);
+            dataName.setString(elem.name);
+            dataName.setCharacterSize(25);
+            dataName.setFillColor(Color::White);
+            dataName.setStyle(Text::Regular);
+            dataName.setOrigin(0, 0);
+            dataName.setPosition(Vector2f(500, startPosY));
+
+            dataScore.setFont(font);
+            dataScore.setString(to_string(elem.score));
+            dataScore.setCharacterSize(25);
+            dataScore.setFillColor(Color::White);
+            dataScore.setStyle(Text::Regular);
+            dataScore.setOrigin(0, 0);
+            dataScore.setPosition(Vector2f(800, startPosY));
+            
+            startPosY += 50.f;
+
+            window.draw(dataId);
+            window.draw(dataName);
+            window.draw(dataScore);
+        }
+
+    }
+
+    window.display();
 }

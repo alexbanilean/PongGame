@@ -1,4 +1,5 @@
 #include "game.h"
+#include "iostream"
 
 void Game::mainLoop(){
 
@@ -24,8 +25,12 @@ void Game::mainLoop(){
             screen.read();
         }
         else if(screen.currentGameState == GameScreen::GameState::DISPLAY){
-            screen.drawInstructions();
-            screen.drawHighscoresTable();
+            if(!screen.displayHighscoresTable)
+                screen.drawInstructions();
+            else
+                screen.drawHighscoresTable();
+
+            screen.input();
         }
         else {
             // RUNNING state
