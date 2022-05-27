@@ -6,30 +6,29 @@
 #include <string>
 
 struct Score{
-    int id, score;
-    std::string name;
+	int id, score;
+	std::string name;
 
-    Score(int ID, std::string Name, int Score){
-        id = ID;
-        name = Name;
-        score = Score;
-    }
+	Score(int ID, std::string Name, int Score){
+		id = ID;
+		name = Name;
+		score = Score;
+	}
 };
 
 class HighScoreTable{
 
 private:
-    std::vector<Score> highscores;
+	std::vector<Score> highscores;
 
 public:
-    HighScoreTable();
+	HighScoreTable();
 
-    std::vector<Score> getHighScoreTable();
+	std::vector<Score> getHighScoreTable();
 
-    void updateTable(Score newScore);
+	void updateTable(Score newScore);
 
-    void sort();
-
+	void sort();
 };
 
 #endif //MAIN_CPP_HIGHSCORETABLE_H

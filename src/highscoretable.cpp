@@ -1,6 +1,5 @@
 #include "highscoretable.h"
 #include "algorithm"
-#include "iostream"
 
 HighScoreTable::HighScoreTable(){
     highscores = {};

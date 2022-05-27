@@ -8,24 +8,23 @@ using namespace sf;
 class Circle{
 
 private:
-    Vector2f position;
-    CircleShape circle;
+	Vector2f position;
+	CircleShape circle;
 
 public:
 
-    explicit Circle(Vector2f startPosition);
+	explicit Circle(Vector2f startPosition);
 
-    Vector2f getPosition();
+	Vector2f getPosition();
 
-    void setPosition(Vector2f newPosition);
+	void setPosition(Vector2f newPosition);
 
-    CircleShape getShape();
+	CircleShape getShape();
 
-    void update();
+	void update();
 
-    friend class GameScreen;
+	friend class GameScreen;
 
 };
-
 
 #endif //MAIN_CPP_CIRCLE_H

@@ -8,10 +8,10 @@ using namespace std;
 class Game{
 
 private:
-    GameScreen screen;
+	GameScreen screen;
 
 public:
-    void mainLoop();
+	void mainLoop();
 };
 
 #endif //MAIN_CPP_GAME_H

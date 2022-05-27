@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.21)
 project(PongGame)
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_EXE_LINKER_FLAGS "-static")
 
 add_executable(PongGame src/main.cpp headers/highscoretable.h src/game.cpp headers/game.h src/gamescreen.cpp headers/gamescreen.h src/player.cpp headers/player.h src/blade.cpp headers/blade.h src/circle.cpp headers/circle.h src/update.cpp src/wall.cpp headers/wall.h src/highscoretable.cpp)
 

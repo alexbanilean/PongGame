@@ -1,22 +1,24 @@
 #include "blade.h"
 
 Blade::Blade(Vector2f startPosition){
-    blade.setSize(Vector2f(15, 90));
-    blade.setPosition(startPosition);
+	nr_collisions = 0;
+	blade.setSize(Vector2f(15, 90));
+	blade.setPosition(startPosition);
 }
 
 Vector2f Blade::getPosition(){
-    return position;
+	return position;
 }
 
 Vector2f Blade::setPosition(Vector2f newPosition){
-    position = newPosition;
+	position = newPosition;
 }
 
 RectangleShape Blade::getShape(){
-    return blade;
+	return blade;
 }
 
 void Blade::update(){
-    blade.setPosition(position);
+	blade.setPosition(position);
 }
+

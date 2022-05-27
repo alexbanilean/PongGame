@@ -1,7 +1,9 @@
 #include "../headers/game.h"
-#include <iostream>
+#include <windows.h>
 
 int main() {
+
+	ShowWindow(GetConsoleWindow(), SW_HIDE);
 
     Game PongGame;
 

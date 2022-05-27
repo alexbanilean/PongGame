@@ -6,23 +6,24 @@
 class Player{
 
 private:
-    static int nextId;
-    int id, highScore;
-    std::string name;
-
+	static int nextId;
+	int id, highScore;
+	std::string name;
 
 public:
-    Player();
+	Player();
 
-    explicit Player(std::string Name);
+	explicit Player(std::string Name);
 
-    void setHighScore(int newScore);
+	void setHighScore(int newScore);
 
-    int getHighScore();
-    int getId();
+	int getHighScore() const;
 
-    void setName(std::string Name);
-    std::string getName();
+	int getId() const;
+
+	void setName(std::string Name);
+
+	std::string getName();
 };
 
 #endif //MAIN_CPP_PLAYER_H

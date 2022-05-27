@@ -1,4 +1,4 @@
-"D:\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/CLion 2021.3.3/bin/ninja/win/ninja.exe" -G Ninja D:\Proiecte\CLion\PongGame
+"D:\CLion 2021.3.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug "-DCMAKE_MAKE_PROGRAM=D:/CLion 2021.3.3/bin/ninja/win/ninja.exe" -G Ninja -S D:\Proiecte\CLion\PongGame -B D:\Proiecte\CLion\PongGame\cmake-build-debug
 -- Found SFML .. in D:/SFML/include
 -- Configuring done
 -- Generating done

@@ -20,7 +20,9 @@ private:
     // Window
     Vector2f resolution;
     RenderWindow window;
-    const unsigned int FPS = 60; // frames per second
+	const int WINDOW_WIDTH = 1200, WINDOW_HEIGHT = 800;
+    const unsigned int FPS = 200; // frames per second
+	const int maxSpeed = 2000;
 
     Color backgroundColor = Color(65, 75, 80);
     Color displayColor = Color(90, 200, 230);
@@ -42,7 +44,7 @@ private:
     Time timeSinceLastMove, timeSinceBladesMove;
 
     int currentGameState, lastGameState;
-    bool displayHighscoresTable;
+    bool displayHighscoreTable;
 
     HighScoreTable table;
 
@@ -67,7 +69,7 @@ public:
 
     void draw();
     void drawInstructions();
-    void drawHighscoresTable();
+    void drawHighscoreTable();
 
     friend class Game;
 

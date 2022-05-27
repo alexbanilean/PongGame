@@ -8,22 +8,23 @@ using namespace sf;
 class Blade{
 
 private:
-    Vector2f position;
-    RectangleShape blade;
+	Vector2f position;
+	RectangleShape blade;
+	int nr_collisions;
 
 public:
 
-    explicit Blade(Vector2f startPosition);
+	explicit Blade(Vector2f startPosition);
 
-    Vector2f getPosition();
+	Vector2f getPosition();
 
-    Vector2f setPosition(Vector2f newPosition);
+	Vector2f setPosition(Vector2f newPosition);
 
-    RectangleShape getShape();
+	RectangleShape getShape();
 
-    void update();
+	void update();
 
-    friend class GameScreen;
+	friend class GameScreen;
 
 };
 
